@@ -28,7 +28,7 @@
 <style lang="scss">
 	.key-container {
 		display: flex;
-		font-size: 24px;
+		font-size: 48rpx;
 		line-height:2.2 ;
 		font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
 		.key-number-container {
@@ -64,6 +64,7 @@
 			justify-content: center;
 			font-weight: bold;
 			background-color: #2686CD;
+			border: none;
 		}
 	}
 </style>
