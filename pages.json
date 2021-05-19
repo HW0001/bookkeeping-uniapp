@@ -6,11 +6,51 @@
 				"navigationBarTitleText": "Home"
 			}
 		}
+        ,{
+            "path" : "pages/label/label",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/statistics/statistics",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		    "color": "#7A7E83",
+		    "selectedColor": "#3cc51f",
+		    "borderStyle": "black",
+		    "backgroundColor": "#ffffff",
+		    "list": [{
+		        "pagePath": "pages/label/label",
+		        "iconPath": "static/logo/label.png",
+				"selectedIconPath":"static/logo/label.png",
+		        "text": "标签"
+		    }, {
+		        "pagePath": "pages/home/index",
+		        "iconPath": "static/logo/home.png",
+				"selectedIconPath":"static/logo/home.png",
+		        "text": "首页"
+		    }, {
+		        "pagePath": "pages/statistics/statistics",
+		        "iconPath": "static/logo/statistics.png",
+				"selectedIconPath":"static/logo/statistics.png",
+		        "text": "统计"
+		    }]
 	}
 }
