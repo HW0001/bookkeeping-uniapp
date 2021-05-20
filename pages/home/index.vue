@@ -1,14 +1,6 @@
 <template>
 	<view class="content">
-		<scroll-view class="label-wrapping" scroll-y>
-			<view class="labels-view">
-				<view v-for="(item,index) in labels" :key="index" class="label-content selected">
-					<view class="text-wrapping">
-						<text class="label-text">{{item.name}}</text>
-					</view>
-				</view>
-			</view>
-		</scroll-view>
+		<LabelPanel :labels="labels" />
 		<view class="type-wrapping">
 			<view class="type-content selected">支出</view>
 			<view class="type-content">收入</view>
@@ -22,6 +14,7 @@
 
 <script>
 	import KeyPanel from './keyPanel.vue'
+	import LabelPanel from './labelPanel.vue'
 	export default {
 		data() {
 			return {
@@ -85,6 +78,7 @@
 		},
 		components: {
 			KeyPanel,
+			LabelPanel
 		},
 		onLoad() {
 
@@ -100,39 +94,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-
-		.label-wrapping {
-			flex: 1;
-			overflow-y: hidden;
-
-			.labels-view {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: flex-start;
-				align-items: center;
-
-				.label-content {
-					width: 25%;
-					padding: .5em;
-
-					.text-wrapping {
-						background-color: #FFE8B8;
-						padding: .5em;
-						border-radius: 8rpx;
-						text-align: center;
-
-						.label-text {
-							display: block;
-							white-space: nowrap;
-							text-overflow: ellipsis;
-							overflow: hidden;
-							max-width: 5em;
-						}
-					}
-
-				}
-			}
-		}
 
 		.type-wrapping {
 			display: flex;
