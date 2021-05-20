@@ -8,8 +8,9 @@
 				0
 			</view>
 		</view>
-		<view class="key-enter">
-			ok
+		<view class="key-operation">
+			<view class="delete common">del</view>
+			<view class="ok common">ok</view>
 		</view>
 	</view>
 </template>
@@ -29,42 +30,67 @@
 	.key-container {
 		display: flex;
 		font-size: 52rpx;
-		line-height:2.3 ;
+		line-height: 2.3;
 		font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
+
 		.key-number-container {
 			display: flex;
 			flex-wrap: wrap;
 			flex: 1;
+
 			.key-number {
 				width: 33.333333%;
 				text-align: center;
 				background-color: #D6F9FE;
-				&:nth-child(2),&:nth-child(4){
-					background-color:#AEEFFD;
+
+				&:nth-child(2),
+				&:nth-child(4) {
+					background-color: #AEEFFD;
 				}
-				&:nth-child(3),&:nth-child(5),&:nth-child(7){
-					background-color:#84DEFA;
+
+				&:nth-child(3),
+				&:nth-child(5),
+				&:nth-child(7) {
+					background-color: #84DEFA;
 				}
-				&:nth-child(6),&:nth-child(8){
-					background-color:#65C9F5;
+
+				&:nth-child(6),
+				&:nth-child(8) {
+					background-color: #65C9F5;
 				}
-				&:nth-child(9){
-					background-color:#34ABEF;
+
+				&:nth-child(9) {
+					background-color: #34ABEF;
 				}
-				&.zero{
+
+				&.zero {
 					flex: 1;
 					background-color: #2686CD;
 				}
 			}
 		}
-		.key-enter{
-			padding: 0 1.2em;
+
+		.key-operation {
 			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-weight: bold;
-			background-color: #2686CD;
-			border: none;
+			flex-wrap: wrap;
+			flex-direction: column;
+			.common {
+				padding: 0 1.2em;
+				font-weight: bold;
+				background-color: #2686CD;
+				border: none;
+			}
+
+			.delete {
+				font-size: 52rpx;
+				line-height: 2.3;
+				background-color: #65C9F5;
+			}
+
+			.ok {
+				flex: 1;
+				height: 70%;
+			}
 		}
 	}
 </style>
