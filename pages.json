@@ -31,6 +31,9 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
+	"easycom":{
+		"autoscan":true
+	},
 	"tabBar":{
 		    "color": "#7A7E83",
 		    "selectedColor": "#3cc51f",

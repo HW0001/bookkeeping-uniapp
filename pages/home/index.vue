@@ -1,6 +1,14 @@
 <template>
 	<view class="content">
 		<LabelPanel :labels="labels" />
+		<view class="date-wrapping">
+			<label class="date-label"> Record Date：
+				<text class="date-input" disabled >{{recordDate}}</text>
+				<image  src="../../static/date.png" class="date-button" @click="changeDateStatus(true)"/>
+			</label>
+		</view>
+		<mx-date-picker :show="showPicker" type="date" :value="recordDate" format='yyyy-mm-dd' @confirm='confirm'
+			@cancel='changeDateStatus(false)' />
 		<view class="type-wrapping">
 			<view class="type-content selected">支出</view>
 			<view class="type-content">收入</view>
@@ -15,9 +23,12 @@
 <script>
 	import KeyPanel from './keyPanel.vue'
 	import LabelPanel from './labelPanel.vue'
+	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	export default {
 		data() {
 			return {
+				recordDate: '2021-04-3',
+				showPicker: false,
 				labels: [{
 						value: '1',
 						name: '买衣服',
@@ -78,13 +89,20 @@
 		},
 		components: {
 			KeyPanel,
-			LabelPanel
+			LabelPanel,
+			MxDatePicker
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			confirm(e) {
+				this.recordDate = e.value
+				this.changeDateStatus(false)
+			},
+			changeDateStatus(type) {
+				this.showPicker = type
+			}
 		}
 	}
 </script>
@@ -94,6 +112,28 @@
 		display: flex;
 		flex-direction: column;
 		height: 100%;
+
+		.date-wrapping {
+			font-size: 38rpx;
+			padding: .5em;
+			background-color: #D5FEF1;
+
+			.date-label {
+				vertical-align: middle;
+
+				.date-input {
+					vertical-align: middle;
+				}
+
+				.date-button {
+					width: 48rpx;
+					height: 54rpx;
+					display: inline-block;
+					margin-left: 1em;
+					vertical-align: middle;
+				}
+			}
+		}
 
 		.type-wrapping {
 			display: flex;
