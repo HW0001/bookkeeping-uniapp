@@ -90,6 +90,8 @@
 			.ok {
 				flex: 1;
 				height: 70%;
+				display: flex;
+				align-items: center;
 			}
 		}
 	}
