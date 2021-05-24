@@ -1,7 +1,7 @@
 <template>
 	<view class="type-wrapping">
-		<view class="type-content" @click="changeType('expend')">支出</view>
-		<view class="type-content" @click="changeType('income')">收入</view>
+		<view class="type-content" @tap="changeType('expend')">支出</view>
+		<view class="type-content" @tap="changeType('income')">收入</view>
 		<view class="underline"  :class="selected==='income'&&'right'"></view>
 	</view>
 </template>

@@ -4,7 +4,7 @@
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
 				<text class="date-input" disabled>{{recordDate}}</text>
-				<image src="../../static/date.png" class="date-button" @click="changeDateStatus(true)" />
+				<image src="../../static/date.png" class="date-button" @tap="changeDateStatus(true)" />
 			</label>
 		</view>
 		<mx-date-picker :show="showPicker" type="date" :value="recordDate" format='yyyy-mm-dd' @confirm='confirm'

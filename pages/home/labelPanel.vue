@@ -3,7 +3,7 @@
 		<view class="labels-view">
 			<view v-for="(item,index) in labels" :key="index" class="label-content"
 				:class="~selectedLabel.indexOf(item.value)&&'selected'">
-				<view class="text-wrapping" @click="clickLabel(item.value)">
+				<view class="text-wrapping" @tap="clickLabel(item.value)">
 					<text class="label-text">{{item.name}}</text>
 				</view>
 			</view>

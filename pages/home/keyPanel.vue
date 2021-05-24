@@ -1,17 +1,17 @@
 <template>
 	<view class="key-container">
 		<view class="key-number-container">
-			<view v-for="(item,index) in keys" :key="index" class="key-number" @click="clickKey(item)">
+			<view v-for="(item,index) in keys" :key="index" class="key-number" @tap="clickKey(item)">
 				{{item}}
 			</view>
 			<view class="key-number special">
-				<view class="zero" @click="clickKey('0')">0</view>
-				<view class="spot" @click="clickKey('.')">.</view>
+				<view class="zero" @tap="clickKey('0')">0</view>
+				<view class="spot" @tap="clickKey('.')">.</view>
 			</view>
 		</view>
 		<view class="key-operation">
-			<view class="delete common" @click="clickKey('del')">del</view>
-			<view class="ok common" @click="clickKey('ok')">ok</view>
+			<view class="delete common" @tap="clickKey('del')">del</view>
+			<view class="ok common" @tap="clickKey('ok')">ok</view>
 		</view>
 	</view>
 </template>
