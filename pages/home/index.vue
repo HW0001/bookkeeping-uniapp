@@ -11,9 +11,9 @@
 			@cancel='changeDateStatus(false)' />
 		<RecordType :selected.sync="recordType" />
 		<view class="input-wrapping">
-			<input type="text" value="" class="input-content" placeholder="please input..." />
+			<input type="text" v-model="amount" class="input-content" placeholder="账单金额" disabled />
 		</view>
-		<KeyPanel></KeyPanel>
+		<KeyPanel @clickKey='clickKey'/>
 	</view>
 </template>
 
@@ -22,6 +22,7 @@
 	import LabelPanel from './labelPanel.vue'
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	import RecordType from '../common/components/recordType.vue'
+	import {keyOperation} from '../common/hooks/home.js'
 	export default {
 		data() {
 			return {
@@ -29,7 +30,7 @@
 				showPicker: false,
 				recordType: 'expend',
 				selectedlabel: ['1'],
-				labels: [],
+				amount:''
 			}
 		},
 		components: {
@@ -51,6 +52,9 @@
 			},
 			changeType(type) {
 				this.recordType = type
+			},
+			clickKey(key){
+				this.amount=keyOperation(this.amount,key)
 			}
 		}
 	}

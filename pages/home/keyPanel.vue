@@ -1,16 +1,17 @@
 <template>
 	<view class="key-container">
 		<view class="key-number-container">
-			<view v-for="(item,index) in keys" :key="index" class="key-number">
+			<view v-for="(item,index) in keys" :key="index" class="key-number" @click="clickKey(item)">
 				{{item}}
 			</view>
-			<view class="key-number zero">
-				0
+			<view class="key-number special">
+				<view class="zero" @click="clickKey('0')">0</view>
+				<view class="spot" @click="clickKey('.')">.</view>
 			</view>
 		</view>
 		<view class="key-operation">
-			<view class="delete common">del</view>
-			<view class="ok common">ok</view>
+			<view class="delete common" @click="clickKey('del')">del</view>
+			<view class="ok common" @click="clickKey('ok')">ok</view>
 		</view>
 	</view>
 </template>
@@ -20,9 +21,14 @@
 		name: "KeyPanel",
 		data() {
 			return {
-				keys: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+				keys: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 			}
 		},
+		methods:{
+			clickKey(key){
+				this.$emit('clickKey',key)
+			}
+		}
 	}
 </script>
 
@@ -63,9 +69,19 @@
 					background-color: #34ABEF;
 				}
 
-				&.zero {
+				&.special {
 					flex: 1;
-					background-color: #2686CD;
+					display: flex;
+
+					.zero {
+						width: 66.6666%;
+						background-color: #34ABEF;
+					}
+
+					.spot {
+						flex: 1;
+						background-color: #2686CD;
+					}
 				}
 			}
 		}
@@ -74,6 +90,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			flex-direction: column;
+
 			.common {
 				padding: 0 1.2em;
 				font-weight: bold;
