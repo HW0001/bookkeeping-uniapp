@@ -1,8 +1,9 @@
 <template>
 	<scroll-view class="label-wrapping" scroll-y>
 		<view class="labels-view">
-			<view v-for="(item,index) in labels" :key="index" class="label-content selected">
-				<view class="text-wrapping">
+			<view v-for="(item,index) in labels" :key="index" class="label-content"
+				:class="~selectedLabel.indexOf(item.value)&&'selected'">
+				<view class="text-wrapping" @click="clickLabel(item.value)">
 					<text class="label-text">{{item.name}}</text>
 				</view>
 			</view>
@@ -11,13 +12,29 @@
 </template>
 
 <script>
+	import {initLabels} from '../common/hooks/labels.js'
 	export default {
 		name: 'LabelPanel',
 		props: {
-			labels: {
+			selectedLabel: {
 				type: Array,
-				required: true
+				default: () => []
 			}
+		},
+		data:()=>{
+			return {
+				labels:[]
+			}
+		},
+		methods:{
+			clickLabel(value){
+				const index = this.selectedLabel.indexOf(value)
+				const newLabels=~index?this.selectedLabel.filter(l=>l!==value):[...this.selectedLabel,value]
+				this.$emit('update:selectedLabel',newLabels)
+			}
+		},
+		mounted() {
+			this.labels=initLabels()
 		}
 	}
 </script>
@@ -26,7 +43,7 @@
 	.label-wrapping {
 		flex: 1;
 		overflow-y: hidden;
-		
+
 		.labels-view {
 			display: flex;
 			flex-wrap: wrap;

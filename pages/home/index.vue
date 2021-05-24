@@ -1,15 +1,15 @@
 <template>
 	<view class="content">
-		<LabelPanel :labels="labels" />
+		<LabelPanel :selected-label.sync='selectedlabel' />
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
-				<text class="date-input" disabled >{{recordDate}}</text>
-				<image  src="../../static/date.png" class="date-button" @click="changeDateStatus(true)"/>
+				<text class="date-input" disabled>{{recordDate}}</text>
+				<image src="../../static/date.png" class="date-button" @click="changeDateStatus(true)" />
 			</label>
 		</view>
 		<mx-date-picker :show="showPicker" type="date" :value="recordDate" format='yyyy-mm-dd' @confirm='confirm'
 			@cancel='changeDateStatus(false)' />
-		<RecordType  :selected.sync="recordType" />
+		<RecordType :selected.sync="recordType" />
 		<view class="input-wrapping">
 			<input type="text" value="" class="input-content" placeholder="please input..." />
 		</view>
@@ -27,63 +27,9 @@
 			return {
 				recordDate: '2021-04-3',
 				showPicker: false,
-				recordType:'expend',
-				labels: [{
-						value: '1',
-						name: '买衣服',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '吃饭',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '坐地铁',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '看病',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '买菜',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '看电影',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '请客',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '网购',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '朋友聚餐',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '买生日礼物的',
-						type: '1'
-					},
-					{
-						value: '1',
-						name: '住',
-						type: '1'
-					},
-				]
+				recordType: 'expend',
+				selectedlabel: ['1'],
+				labels: [],
 			}
 		},
 		components: {
@@ -103,8 +49,8 @@
 			changeDateStatus(type) {
 				this.showPicker = type
 			},
-			changeType(type){
-				this.recordType=type
+			changeType(type) {
+				this.recordType = type
 			}
 		}
 	}
