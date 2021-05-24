@@ -2,17 +2,14 @@
 	<view class="content">
 		<LabelPanel :labels="labels" />
 		<view class="date-wrapping">
-			<label class="date-label"> Record Date：
+			<label class="date-label"> 账单日期：
 				<text class="date-input" disabled >{{recordDate}}</text>
 				<image  src="../../static/date.png" class="date-button" @click="changeDateStatus(true)"/>
 			</label>
 		</view>
 		<mx-date-picker :show="showPicker" type="date" :value="recordDate" format='yyyy-mm-dd' @confirm='confirm'
 			@cancel='changeDateStatus(false)' />
-		<view class="type-wrapping">
-			<view class="type-content selected">支出</view>
-			<view class="type-content">收入</view>
-		</view>
+		<RecordType  :selected.sync="recordType" />
 		<view class="input-wrapping">
 			<input type="text" value="" class="input-content" placeholder="please input..." />
 		</view>
@@ -24,11 +21,13 @@
 	import KeyPanel from './keyPanel.vue'
 	import LabelPanel from './labelPanel.vue'
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
+	import RecordType from '../common/components/recordType.vue'
 	export default {
 		data() {
 			return {
 				recordDate: '2021-04-3',
 				showPicker: false,
+				recordType:'expend',
 				labels: [{
 						value: '1',
 						name: '买衣服',
@@ -90,7 +89,8 @@
 		components: {
 			KeyPanel,
 			LabelPanel,
-			MxDatePicker
+			MxDatePicker,
+			RecordType
 		},
 		onLoad() {
 
@@ -102,6 +102,9 @@
 			},
 			changeDateStatus(type) {
 				this.showPicker = type
+			},
+			changeType(type){
+				this.recordType=type
 			}
 		}
 	}
@@ -135,32 +138,6 @@
 			}
 		}
 
-		.type-wrapping {
-			display: flex;
-			font-size: 48rpx;
-
-			.type-content {
-				width: 50%;
-				line-height: 2.2;
-				font-weight: bold;
-				text-align: center;
-				background-color: #FEF6D5;
-
-				&.selected {
-					position: relative;
-
-					&::after {
-						position: absolute;
-						left: 0;
-						bottom: -8rpx;
-						content: '';
-						width: 100%;
-						height: 8rpx;
-						background-color: red;
-					}
-				}
-			}
-		}
 
 		.input-wrapping {
 			padding: 18rpx 28rpx;
