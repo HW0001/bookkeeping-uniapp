@@ -4,14 +4,18 @@
 			<view v-for="(item,index) in keys" :key="index" class="key-number" @tap="clickKey(item)">
 				{{item}}
 			</view>
-			<view class="key-number special">
-				<view class="zero" @tap="clickKey('0')">0</view>
-				<view class="spot" @tap="clickKey('.')">.</view>
+			<view class="key-number delete-wrapping" @tap="clickKey('del')" @longtap='longtapDelete'
+				@touchend='touchendDelete'>
+				<image src="../../static/keypanel/delete.png" mode='aspectFit' class="delete-img" />
 			</view>
 		</view>
 		<view class="key-operation">
-			<view class="delete common" @tap="clickKey('del')">del</view>
-			<view class="ok common" @tap="clickKey('ok')">ok</view>
+			<view class="common" @tap="clickOperation('+')">+</view>
+			<view class="common" @tap="clickOperation('-')">-</view>
+			<view class="common submit" @tap="clickSubmit">
+				<image v-if="isSave" src="../../static/keypanel/submit.png" mode="aspectFit" class="submit-img"></image>
+				<image v-else src="../../static/keypanel/equal.png" mode="aspectFit" class="submit-img"></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -21,12 +25,29 @@
 		name: "KeyPanel",
 		data() {
 			return {
-				keys: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+				isSave: true,
+				keys: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.']
 			}
 		},
-		methods:{
-			clickKey(key){
-				this.$emit('clickKey',key)
+		methods: {
+			clickKey(key,isSave) {
+				this.$emit('clickKey', key,isSave)
+			},
+			longtapDelete() {
+				this.delsetinterval = setInterval(() => {
+					this.$emit('clickKey', 'del')
+				}, 120)
+			},
+			touchendDelete() {
+				clearInterval(this.delsetinterval)
+			},
+			clickOperation(type) {
+				this.isSave = false
+				this.clickKey(type)
+			},
+			clickSubmit() {
+				this.clickKey('ok',this.isSave)
+				!this.isSave && (this.isSave = true)
 			}
 		}
 	}
@@ -35,9 +56,8 @@
 <style lang="scss">
 	.key-container {
 		display: flex;
-		font-size: 52rpx;
-		line-height: 2.3;
-		font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
+		font-size: 44rpx;
+		line-height: 2.2;
 
 		.key-number-container {
 			display: flex;
@@ -47,41 +67,47 @@
 			.key-number {
 				width: 33.333333%;
 				text-align: center;
-				background-color: #D6F9FE;
+				border: .5rpx solid $uni-border-color;
 
+				&:nth-child(1),
 				&:nth-child(2),
-				&:nth-child(4) {
-					background-color: #AEEFFD;
+				&:nth-child(3) {
+					border-right: none;
 				}
 
-				&:nth-child(3),
+				&:nth-child(4),
 				&:nth-child(5),
-				&:nth-child(7) {
-					background-color: #84DEFA;
+				&:nth-child(6) {
+					border-right: none;
+					border-top: none;
 				}
 
-				&:nth-child(6),
-				&:nth-child(8) {
-					background-color: #65C9F5;
-				}
-
+				&:nth-child(7),
+				&:nth-child(8),
 				&:nth-child(9) {
-					background-color: #34ABEF;
+					border-right: none;
+					border-top: none;
 				}
 
-				&.special {
-					flex: 1;
-					display: flex;
+				&:nth-child(10),
+				&:nth-child(11),
+				&:nth-child(12) {
+					border-right: none;
+					border-top: none;
+				}
 
-					.zero {
-						width: 66.6666%;
-						background-color: #34ABEF;
-					}
+			}
 
-					.spot {
-						flex: 1;
-						background-color: #2686CD;
-					}
+			.delete-wrapping {
+				flex: 1;
+				display: flex;
+				border: 1rpx solid $uni-border-color;
+				align-items: center;
+				justify-content: center;
+
+				.delete-img {
+					width: 48rpx;
+					height: 48rpx;
 				}
 			}
 		}
@@ -93,22 +119,25 @@
 
 			.common {
 				padding: 0 1.2em;
-				font-weight: bold;
-				background-color: #2686CD;
-				border: none;
+				text-align: center;
+				border: 1rpx solid $uni-border-color;
+
+				&:nth-child(1),
+				&:nth-child(2) {
+					border-bottom: none;
+				}
 			}
 
-			.delete {
-				font-size: 52rpx;
-				line-height: 2.3;
-				background-color: #65C9F5;
-			}
-
-			.ok {
+			.submit {
 				flex: 1;
-				height: 70%;
 				display: flex;
 				align-items: center;
+				justify-content: center;
+
+				.submit-img {
+					width: 56rpx;
+					height: 56rpx;
+				}
 			}
 		}
 	}

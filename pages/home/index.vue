@@ -53,8 +53,8 @@
 			changeType(type) {
 				this.recordType = type
 			},
-			clickKey(key){
-				this.amount=keyOperation(this.amount,key)
+			clickKey(key,isSave){
+				this.amount=keyOperation(this.amount,key,isSave)
 			}
 		}
 	}
@@ -91,7 +91,6 @@
 
 		.input-wrapping {
 			padding: 18rpx 28rpx;
-			border-bottom: 4rpx solid #267DBD;
 
 			.input-content {
 				font-size: 56rpx;
