@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
-		<LabelPanel :selected-label.sync='selectedlabel' />
+		<LabelPanel :selected-label.sync='selectedlabel' @clickAddLabel='addLabel' />
+		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" />
 		<RecordType :selected.sync="recordType" />
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
@@ -29,6 +30,7 @@
 	import LabelPanel from './labelPanel.vue'
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	import RecordType from '../common/components/recordType.vue'
+	import LabelMdal from './labelModal.vue'
 	import {
 		keyOperation
 	} from '../common/hooks/home.js'
@@ -39,14 +41,16 @@
 				showPicker: false,
 				recordType: 'expend',
 				selectedlabel: ['1'],
-				amount: ''
+				amount: '',
+				showAddLabelModal:false
 			}
 		},
 		components: {
 			KeyPanel,
 			LabelPanel,
 			MxDatePicker,
-			RecordType
+			RecordType,
+			LabelMdal
 		},
 		onLoad() {
 
@@ -64,6 +68,9 @@
 			},
 			clickKey(key, isSave) {
 				this.amount = keyOperation(this.amount, key, isSave)
+			},
+			addLabel(){
+				this.showAddLabelModal=true;
 			}
 		}
 	}

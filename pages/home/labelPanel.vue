@@ -22,6 +22,7 @@
 	import {
 		initLabels
 	} from '../common/hooks/labels.js'
+	
 	export default {
 		name: 'LabelPanel',
 		props: {
@@ -32,7 +33,7 @@
 		},
 		data: () => {
 			return {
-				labels: []
+				labels: [],
 			}
 		},
 		methods: {
@@ -42,23 +43,13 @@
 				this.$emit('update:selectedLabel', newLabels)
 			},
 			addLabel() {
-				uni.showModal({
-					title: '提示',
-					content: '<view>11111</view>',
-					success: function(res) {
-						if (res.confirm) {
-							console.log('用户点击确定');
-						} else if (res.cancel) {
-							console.log('用户点击取消');
-						}
-					}
-				});
+				this.$emit('clickAddLabel')
 			}
 		},
 		mounted() {
 			this.labels = initLabels()
 		},
-		
+
 	}
 </script>
 
