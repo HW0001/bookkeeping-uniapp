@@ -1,6 +1,7 @@
 <template>
 	<view class="content">
 		<LabelPanel :selected-label.sync='selectedlabel' />
+		<RecordType :selected.sync="recordType" />
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
 				<text class="date-input" disabled>{{recordDate}}</text>
@@ -9,11 +10,17 @@
 		</view>
 		<mx-date-picker :show="showPicker" type="date" :value="recordDate" format='yyyy-mm-dd' @confirm='confirm'
 			@cancel='changeDateStatus(false)' />
-		<RecordType :selected.sync="recordType" />
 		<view class="input-wrapping">
-			<input type="text" v-model="amount" class="input-content" placeholder="账单金额" disabled />
+			<view class="remarks-wrapping">
+				<text class="remarks-title"> 备注：</text>
+				<input type="text" value="" placeholder="请输入备注..." />
+			</view>
+			<view class="amount-wrapping">
+				<text class="amount-title">金额：</text>
+				<input type="text" v-model="amount" class="input-content" placeholder="0" disabled />
+			</view>
 		</view>
-		<KeyPanel @clickKey='clickKey'/>
+		<KeyPanel @clickKey='clickKey' />
 	</view>
 </template>
 
@@ -22,7 +29,9 @@
 	import LabelPanel from './labelPanel.vue'
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	import RecordType from '../common/components/recordType.vue'
-	import {keyOperation} from '../common/hooks/home.js'
+	import {
+		keyOperation
+	} from '../common/hooks/home.js'
 	export default {
 		data() {
 			return {
@@ -30,7 +39,7 @@
 				showPicker: false,
 				recordType: 'expend',
 				selectedlabel: ['1'],
-				amount:''
+				amount: ''
 			}
 		},
 		components: {
@@ -53,8 +62,8 @@
 			changeType(type) {
 				this.recordType = type
 			},
-			clickKey(key,isSave){
-				this.amount=keyOperation(this.amount,key,isSave)
+			clickKey(key, isSave) {
+				this.amount = keyOperation(this.amount, key, isSave)
 			}
 		}
 	}
@@ -90,12 +99,30 @@
 
 
 		.input-wrapping {
+			background-color: $uni-bg-color-grey;
 			padding: 18rpx 28rpx;
-
-			.input-content {
-				font-size: 56rpx;
+			display: flex;
+			font-size: 34rpx;
+			align-items: center;
+			.remarks-wrapping{
+				width: 65%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.remarks-title{
+					white-space: nowrap;
+				}
 			}
-
+			.amount-wrapping{
+				flex: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding-left: .5em;
+				.amount-title{
+					white-space: nowrap;
+				}
+			}
 		}
 	}
 </style>

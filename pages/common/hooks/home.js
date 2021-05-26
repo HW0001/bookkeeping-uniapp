@@ -51,6 +51,7 @@ function calculateString(value) {
 	if (!value) return ""
 	const addArray = value.split('+')
 	return addArray.map(add => {
+		if(!add) return 0
 		const subArray = add.split('-')
 		if (subArray.length === 1) return add
 		else {

@@ -52,5 +52,42 @@ export const defaultLabels=[{
 						value: '1444',
 						name: '住',
 						type: '1'
+					}
+					,
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
 					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					{
+						value: '1444',
+						name: '住',
+						type: '1'
+					},
+					
 				]

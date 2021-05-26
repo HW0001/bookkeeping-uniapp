@@ -55,6 +55,7 @@
 
 <style lang="scss">
 	.key-container {
+		background-color: $uni-bg-color-grey;
 		display: flex;
 		font-size: 44rpx;
 		line-height: 2.2;
