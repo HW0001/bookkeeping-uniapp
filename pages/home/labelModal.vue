@@ -3,7 +3,8 @@
 		<view class="input-view">
 			<view class="input-name flex-left">
 				<view class="title">标签名称：</view>
-				<input type="text" placeholder="请输入标签名称" />
+				<input v-if="labelNameError" type="text" placeholder="请输入标签名称..." v-model="labelDataName" placeholder-style="color:#FF8269" />
+				<input v-else type="text" placeholder="..." v-model="labelDataName" />
 			</view>
 			<view class="uni-list-cell flex-left">
 				<view class="title">
@@ -12,10 +13,10 @@
 				<view class="type-wrapping">
 					<radio-group @change="radioChange">
 						<label class="radio">
-							<radio value="1" checked="true" />选中
+							<radio value="1" checked="true" />支出
 						</label>
 						<label class="radio">
-							<radio value="2" />未选中
+							<radio value="2" />收入
 						</label>
 					</radio-group>
 				</view>
@@ -26,24 +27,44 @@
 
 <script>
 	import NeilModal from '../../components/neil-modal/neil-modal.vue'
+	import {
+		CONST_RECORD_TYPE
+	} from '../../constant/home.js'
 	export default {
 		name: 'LabelModal',
-		props: ['showAddLabelModal'],
+		props: {
+			showAddLabelModal: {
+				type: Boolean,
+				default: false
+			},
+			labelName: String,
+			labelType: {
+				type: String,
+				default: CONST_RECORD_TYPE.EXPEND
+			}
+		},
 		data() {
 			return {
-				recordType: ['支出', '收入'],
-				index: 0
+				labelDataName: this.labelName,
+				labelDataType: this.labelType,
+				labelNameError: false
 			}
 		},
 		methods: {
 			closeModal() {
 				this.$emit('update:showAddLabelModal', false)
 			},
-			confirmModal(){
-				this.$emit('update:showAddLabelModal', false)
+			confirmModal(close) {
+				if (!this.labelDataName) return this.labelNameError = true
+				else {
+					this.labelNameError = false
+					close()
+					this.$emit('update:showAddLabelModal', true)
+				}
 			},
-			radioChange(e){
-				console.log(e)
+			radioChange(e) {
+				const value = e.target.value
+				this.labelDataType = value === '1' ? CONST_RECORD_TYPE.EXPEND : CONST_RECORD_TYPE.INCOME
 			}
 		},
 		mounted() {

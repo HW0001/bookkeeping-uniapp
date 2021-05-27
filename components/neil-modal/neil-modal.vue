@@ -89,10 +89,7 @@
                 this.closeModal()
             },
             clickRight() {
-                setTimeout(() => {
-                	this.$emit('confirm')
-                }, 200)
-                this.closeModal()
+                	this.$emit('confirm',this.closeModal)
             },
 			clickMask(){
 				if(this.autoClose){
