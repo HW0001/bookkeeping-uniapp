@@ -1,0 +1,1 @@
+export const CONST_RECORD_KEY='bk_record_key'

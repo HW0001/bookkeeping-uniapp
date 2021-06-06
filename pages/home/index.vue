@@ -14,7 +14,7 @@
 		<view class="input-wrapping">
 			<view class="remarks-wrapping">
 				<text class="remarks-title"> 备注：</text>
-				<input type="text" value="" placeholder="请输入备注..." />
+				<input type="text" v-model="amark" placeholder="请输入备注..." />
 			</view>
 			<view class="amount-wrapping">
 				<text class="amount-title">金额：</text>
@@ -31,9 +31,16 @@
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	import RecordType from '../common/components/recordType.vue'
 	import LabelMdal from './labelModal.vue'
+	import recordOperation from '../common/hooks/recordOperation.js'
+	import {
+		Record
+	} from '../common/hooks/record.js'
 	import {
 		keyOperation
 	} from '../common/hooks/home.js'
+	import {
+		CONST_RECORD_SAVE
+	} from '../../constant/home.js'
 	export default {
 		data() {
 			return {
@@ -42,7 +49,8 @@
 				recordType: 'expend',
 				selectedlabel: ['1'],
 				amount: '',
-				showAddLabelModal:false
+				showAddLabelModal: false,
+				amark: ''
 			}
 		},
 		components: {
@@ -53,7 +61,6 @@
 			LabelMdal
 		},
 		onLoad() {
-
 		},
 		methods: {
 			confirm(e) {
@@ -67,10 +74,21 @@
 				this.recordType = type
 			},
 			clickKey(key, isSave) {
-				this.amount = keyOperation(this.amount, key, isSave)
+				const result = keyOperation(this.amount, key, isSave)
+				if (result === CONST_RECORD_SAVE) {
+					recordOperation.saveRecord(new Record(this.amount, this.recordType, this.selectedlabel, this.amark))
+					this.reset()
+				} else {
+					this.amount = result
+				}
 			},
-			addLabel(){
-				this.showAddLabelModal=true;
+			addLabel() {
+				this.showAddLabelModal = true;
+			},
+			reset() {
+				this.amount = 0
+				this.selectedlabel = []
+				this.amark = ''
 			}
 		}
 	}
@@ -111,22 +129,26 @@
 			display: flex;
 			font-size: 34rpx;
 			align-items: center;
-			.remarks-wrapping{
+
+			.remarks-wrapping {
 				width: 65%;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				.remarks-title{
+
+				.remarks-title {
 					white-space: nowrap;
 				}
 			}
-			.amount-wrapping{
+
+			.amount-wrapping {
 				flex: 1;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				padding-left: .5em;
-				.amount-title{
+
+				.amount-title {
 					white-space: nowrap;
 				}
 			}

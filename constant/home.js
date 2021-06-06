@@ -6,3 +6,4 @@ export const CONST_RECORD_TYPE={
 	EXPEND:'expend',
 	INCOME:'income'
 }
+export const CONST_RECORD_SAVE='save'
