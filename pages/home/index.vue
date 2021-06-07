@@ -60,7 +60,8 @@
 			RecordType,
 			LabelMdal
 		},
-		onLoad() {
+		activated() {
+			console.log('onload  11111')
 		},
 		methods: {
 			confirm(e) {

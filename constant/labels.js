@@ -1,5 +1,7 @@
 import {CONST_RECORD_TYPE} from './home.js'
 
+export const CONST_LABEL_KEY='bk_label_key'
+
 export const defaultLabels=[{
 						value: '1',
 						name: '买衣服',

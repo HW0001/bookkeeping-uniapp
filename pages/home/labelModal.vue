@@ -3,8 +3,9 @@
 		<view class="input-view">
 			<view class="input-name flex-left">
 				<view class="title">标签名称：</view>
-				<input v-if="labelNameError" type="text" placeholder="请输入标签名称..." v-model="labelDataName" placeholder-style="color:#FF8269" />
-				<input v-else type="text" placeholder="..." v-model="labelDataName" />
+				<input v-if="labelNameError" type="text" placeholder="请输入标签名称..." v-model="label.name"
+					placeholder-style="color:#FF8269" />
+				<input v-else type="text" placeholder="..." v-model="label.name" />
 			</view>
 			<view class="uni-list-cell flex-left">
 				<view class="title">
@@ -37,16 +38,11 @@
 				type: Boolean,
 				default: false
 			},
-			labelName: String,
-			labelType: {
-				type: String,
-				default: CONST_RECORD_TYPE.EXPEND
-			}
+			labelId: String,
 		},
 		data() {
 			return {
-				labelDataName: this.labelName,
-				labelDataType: this.labelType,
+				label: {},
 				labelNameError: false
 			}
 		},
@@ -55,7 +51,7 @@
 				this.$emit('update:showAddLabelModal', false)
 			},
 			confirmModal(close) {
-				if (!this.labelDataName) return this.labelNameError = true
+				if (!this.label.name) return this.labelNameError = true
 				else {
 					this.labelNameError = false
 					close()
@@ -64,11 +60,11 @@
 			},
 			radioChange(e) {
 				const value = e.target.value
-				this.labelDataType = value === '1' ? CONST_RECORD_TYPE.EXPEND : CONST_RECORD_TYPE.INCOME
+				this.label.type = value === '1' ? CONST_RECORD_TYPE.EXPEND : CONST_RECORD_TYPE.INCOME
 			}
 		},
 		mounted() {
-			console.log(this.showAddLabelModal)
+
 		}
 	}
 </script>
