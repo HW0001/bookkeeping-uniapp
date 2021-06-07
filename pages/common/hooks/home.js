@@ -1,4 +1,5 @@
 import {CONST_RECORD_SAVE} from '../../../constant/home.js'
+import Record from '../class/record.js'
 const operationObject = {
 	'del': keyDelete,
 	'ok': keySave,
@@ -7,7 +8,6 @@ const operationObject = {
 	'+': addOrSub,
 	'-': addOrSub
 }
-import Record from './record.js'
 
 function keyDelete(value) {
 	const newValue = [...value || '0']

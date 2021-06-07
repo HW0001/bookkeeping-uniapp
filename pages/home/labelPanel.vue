@@ -1,7 +1,7 @@
 <template>
 	<scroll-view class="label-wrapping" scroll-y>
 		<view class="labels-view">
-			<view v-for="(item,index) in labels" :key="index" class="label-content"
+			<view v-for="(item,index) in viewLabels" :key="index" class="label-content"
 				:class="~selectedLabel.indexOf(item.value)&&'selected'">
 				<view class="text-wrapping" @tap="clickLabel(item.value)">
 					<text class="label-text">{{item.name}}</text>
@@ -19,7 +19,7 @@
 <script>
 	import {
 		initLabels
-	} from '../common/hooks/labels.js'
+	} from '../common/hooks/labelOperation.js'
 
 	export default {
 		name: 'LabelPanel',
@@ -27,6 +27,9 @@
 			selectedLabel: {
 				type: Array,
 				default: () => []
+			},
+			labelType: {
+				type: String
 			}
 		},
 		data: () => {
@@ -42,6 +45,11 @@
 			},
 			addLabel() {
 				this.$emit('clickAddLabel')
+			}
+		},
+		computed: {
+			viewLabels() {
+				return this.labels.filter(label => label.type === this.labelType)
 			}
 		},
 		mounted() {

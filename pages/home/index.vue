@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<LabelPanel :selected-label.sync='selectedlabel' @clickAddLabel='addLabel' />
+		<LabelPanel :selected-label.sync='selectedlabel' @clickAddLabel='addLabel' :label-type='recordType' />
 		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" />
 		<RecordType :selected.sync="recordType" />
 		<view class="date-wrapping">
@@ -34,7 +34,7 @@
 	import recordOperation from '../common/hooks/recordOperation.js'
 	import {
 		Record
-	} from '../common/hooks/record.js'
+	} from '../common/class/record.js'
 	import {
 		keyOperation
 	} from '../common/hooks/home.js'
