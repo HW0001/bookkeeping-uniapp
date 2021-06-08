@@ -1,7 +1,8 @@
 <template>
 	<view class="content">
-		<LabelPanel :selected-label.sync='selectedlabel' @clickAddLabel='addLabel' :label-type='recordType' />
-		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" />
+		<LabelPanel :selected-label.sync='selectedlabel' :label-type='recordType'
+			:showAddLabelModal.sync="showAddLabelModal" :updateLabelID.sync='updateLabelID' />
+		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" :updateLabelID='updateLabelID' />
 		<RecordType :selected.sync="recordType" />
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
@@ -49,7 +50,8 @@
 				selectedlabel: ['1'],
 				amount: '',
 				showAddLabelModal: false,
-				amark: ''
+				amark: '',
+				updateLabelID: 0
 			}
 		},
 		components: {
@@ -82,9 +84,6 @@
 				} else {
 					this.amount = result
 				}
-			},
-			addLabel() {
-				this.showAddLabelModal = true;
 			},
 			reset() {
 				this.amount = 0

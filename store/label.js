@@ -1,5 +1,6 @@
 import {
-	CONST_LABEL_KEY,defaultLabels
+	CONST_LABEL_KEY,
+	defaultLabels
 } from '../constant/labels.js'
 const labelStore = {
 	state: {
@@ -16,6 +17,19 @@ const labelStore = {
 			} else {
 				state.labels = defaultLabels
 			}
+		},
+		saveLabel(state, label) {
+			const index = state.labels.findIndex(f => f.id === label.id)
+			if (index > 0) {
+				state.labels.splice(index, 1, label)
+			} else {
+				state.labels.push(label)
+			}
+			uni.setStorage({
+				key: CONST_LABEL_KEY,
+				data: JSON.stringify(state.labels),
+			})
+
 		}
 	},
 	actions: {

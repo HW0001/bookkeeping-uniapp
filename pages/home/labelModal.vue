@@ -31,6 +31,7 @@
 	import {
 		CONST_RECORD_TYPE
 	} from '../../constant/home.js'
+	import {Label} from '../common/class/label.js'
 	export default {
 		name: 'LabelModal',
 		props: {
@@ -38,11 +39,14 @@
 				type: Boolean,
 				default: false
 			},
-			labelId: String,
+			updateLabelID: Number
 		},
 		data() {
 			return {
-				label: {},
+				label: {
+					name: '',
+					type: CONST_RECORD_TYPE.EXPEND
+				},
 				labelNameError: false
 			}
 		},
@@ -54,8 +58,9 @@
 				if (!this.label.name) return this.labelNameError = true
 				else {
 					this.labelNameError = false
+					this.$store.commit('saveLabel',new Label(this.label.name,this.label.type))
 					close()
-					this.$emit('update:showAddLabelModal', true)
+					this.$emit('update:showAddLabelModal', false)
 				}
 			},
 			radioChange(e) {
@@ -63,9 +68,17 @@
 				this.label.type = value === '1' ? CONST_RECORD_TYPE.EXPEND : CONST_RECORD_TYPE.INCOME
 			}
 		},
-		mounted() {
-
-		}
+		watch:{
+			updateLabelID(){
+				console.log('1333:'+this.updateLabelID)
+				if(this.updateLabelID){
+					this.label=this.$store.state.label.labels.filter(l=>l.id===this.updateLabelID)[0]
+				}else{
+					
+				}
+			}
+		},
+		mounted() {}
 	}
 </script>
 

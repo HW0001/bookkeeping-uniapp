@@ -3,7 +3,7 @@
 		<view class="labels-view">
 			<view v-for="(item,index) in labels" :key="index" class="label-content"
 				:class="~selectedLabel.indexOf(item.value)&&'selected'">
-				<view class="text-wrapping" @tap="clickLabel(item.value)">
+				<view class="text-wrapping" @tap="clickLabel(item.value)" @longpress='updateLabel(item)'>
 					<text class="label-text">{{item.name}}</text>
 				</view>
 			</view>
@@ -29,7 +29,12 @@
 			},
 			labelType: {
 				type: String
-			}
+			},
+			showAddLabelModal: {
+				type: Boolean,
+				default: false
+			},
+			updateLabelID: Number
 		},
 		data: () => {
 			return {}
@@ -41,7 +46,12 @@
 				this.$emit('update:selectedLabel', newLabels)
 			},
 			addLabel() {
-				this.$emit('clickAddLabel')
+				this.$emit('update:showAddLabelModal', true)
+			},
+			updateLabel(label) {
+				console.log(label)
+				this.$emit('update:updateLabelID', label.id)
+				this.$emit('update:showAddLabelModal', true)
 			}
 		},
 		computed: {
