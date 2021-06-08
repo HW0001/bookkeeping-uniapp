@@ -31,7 +31,6 @@
 	import MxDatePicker from '../../components/mx-datepicker/mx-datepicker.vue'
 	import RecordType from '../common/components/recordType.vue'
 	import LabelMdal from './labelModal.vue'
-	import recordOperation from '../common/hooks/recordOperation.js'
 	import {
 		Record
 	} from '../common/class/record.js'
@@ -77,7 +76,8 @@
 			clickKey(key, isSave) {
 				const result = keyOperation(this.amount, key, isSave)
 				if (result === CONST_RECORD_SAVE) {
-					recordOperation.saveRecord(new Record(this.amount, this.recordType, this.selectedlabel, this.amark))
+					this.$store.commit('saveRecord', new Record(this.amount, this.recordType, this.selectedlabel, this
+						.amark))
 					this.reset()
 				} else {
 					this.amount = result

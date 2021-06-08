@@ -17,8 +17,9 @@
 </template>
 
 <script>
-	import labelOperation from '../common/hooks/labelOperation.js'
-
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		name: 'LabelPanel',
 		props: {
@@ -31,9 +32,7 @@
 			}
 		},
 		data: () => {
-			return {
-				labels: [],
-			}
+			return {}
 		},
 		methods: {
 			clickLabel(value) {
@@ -43,20 +42,17 @@
 			},
 			addLabel() {
 				this.$emit('clickAddLabel')
-			},
-			filterLabels() {
-				labelOperation.initLabels()
-				this.labels = labelOperation.labels.filter(label => label.type === this.labelType)
 			}
 		},
-		mounted() {
-			this.filterLabels()
+		computed: {
+			...mapState({
+				labels(state) {
+					return state.label.labels.filter(label => label.type === this.labelType)
+				}
+			})
+
 		},
-		watch: {
-			labelType() {
-				this.filterLabels()
-			}
-		}
+		mounted() {},
 	}
 </script>
 

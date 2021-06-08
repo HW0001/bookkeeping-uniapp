@@ -16,6 +16,7 @@ function keyDelete(value) {
 }
 
 function keySave(value, key, isSave) {
+	const strArray = value.split(/[+-]/)
 	if (isSave)
 		return CONST_RECORD_SAVE
 	else return calculateString(value)
@@ -24,7 +25,6 @@ function keySave(value, key, isSave) {
 function keySpot(value) {
 	if (value.length > 18) return value
 	if (!value) return '0.'
-	const strArray = value.split(/[+-]/)
 	if (strArray.length === 1) {
 		if (value.includes('.')) return value
 		else return value + '.'
