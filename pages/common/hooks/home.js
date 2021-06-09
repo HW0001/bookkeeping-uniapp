@@ -1,4 +1,6 @@
-import {CONST_RECORD_SAVE} from '../../../constant/home.js'
+import {
+	CONST_RECORD_SAVE
+} from '../../../constant/home.js'
 import Record from '../class/record.js'
 const operationObject = {
 	'del': keyDelete,
@@ -16,7 +18,6 @@ function keyDelete(value) {
 }
 
 function keySave(value, key, isSave) {
-	const strArray = value.split(/[+-]/)
 	if (isSave)
 		return CONST_RECORD_SAVE
 	else return calculateString(value)
@@ -25,6 +26,7 @@ function keySave(value, key, isSave) {
 function keySpot(value) {
 	if (value.length > 18) return value
 	if (!value) return '0.'
+	const strArray = value.split(/[+-]/)
 	if (strArray.length === 1) {
 		if (value.includes('.')) return value
 		else return value + '.'
@@ -53,7 +55,7 @@ function calculateString(value) {
 	if (!value) return ""
 	const addArray = value.split('+')
 	return addArray.map(add => {
-		if(!add) return 0
+		if (!add) return 0
 		const subArray = add.split('-')
 		if (subArray.length === 1) return add
 		else {
@@ -82,5 +84,6 @@ export function keyOperation(value, key, isSave) {
 	if (operationObject[key])
 		return operationObject[key](value, key, isSave)
 	else if (value.length > 18) return value
+	else if (value === '0') return key
 	else return value + key
 }
