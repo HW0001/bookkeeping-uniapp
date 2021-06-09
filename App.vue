@@ -23,5 +23,6 @@
 	uni-page-body {
 		height: 100%;
 		font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
+		background-color: #f8f8f8;
 	}
 </style>

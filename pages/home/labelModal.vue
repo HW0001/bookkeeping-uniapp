@@ -3,9 +3,9 @@
 		<view class="input-view">
 			<view class="input-name flex-left">
 				<view class="title">标签名称：</view>
-				<input v-if="labelNameError" type="text" placeholder="请输入标签名称..." v-model="label.name"
+				<input v-if="labelNameError" type="text" placeholder="请输入标签名称..." :value="updateLabel.name"
 					placeholder-style="color:#FF8269" />
-				<input v-else type="text" placeholder="..." v-model="label.name" />
+				<input v-else type="text" placeholder="..." :value="updateLabel.name" @input="valueInput" />
 			</view>
 			<view class="uni-list-cell flex-left">
 				<view class="title">
@@ -13,11 +13,8 @@
 				</view>
 				<view class="type-wrapping">
 					<radio-group @change="radioChange">
-						<label class="radio">
-							<radio value="1" checked="true" />支出
-						</label>
-						<label class="radio">
-							<radio value="2" />收入
+						<label class="radio" v-for="type in typeRadio" :key='type.value'>
+							<radio :value='type.value' :checked="type.value===updateLabel.type" />{{type.name}}
 						</label>
 					</radio-group>
 				</view>
@@ -31,7 +28,9 @@
 	import {
 		CONST_RECORD_TYPE
 	} from '../../constant/home.js'
-	import {Label} from '../common/class/label.js'
+	import {
+		Label
+	} from '../common/class/label.js'
 	export default {
 		name: 'LabelModal',
 		props: {
@@ -39,7 +38,7 @@
 				type: Boolean,
 				default: false
 			},
-			updateLabelID: Number
+			updateLabel: Object,
 		},
 		data() {
 			return {
@@ -47,7 +46,14 @@
 					name: '',
 					type: CONST_RECORD_TYPE.EXPEND
 				},
-				labelNameError: false
+				labelNameError: false,
+				typeRadio: [{
+					value: CONST_RECORD_TYPE.EXPEND,
+					name: '支出'
+				}, {
+					value: CONST_RECORD_TYPE.INCOME,
+					name: '收入'
+				}, ]
 			}
 		},
 		methods: {
@@ -55,30 +61,38 @@
 				this.$emit('update:showAddLabelModal', false)
 			},
 			confirmModal(close) {
-				if (!this.label.name) return this.labelNameError = true
+				if (!this.label.name && !this.updateLabel.name) return this.labelNameError = true
 				else {
 					this.labelNameError = false
-					this.$store.commit('saveLabel',new Label(this.label.name,this.label.type))
+					const labelName = this.label.name ? this.label.name : this.updateLabel.name
+					const labelType = this.label.type ? this.label.type : this.updateLabel.type
+					if (this.updateLabel.id) {
+						this.$store.commit('saveLabel', {
+							...this.updateLabel,
+							name: labelName,
+							type: labelType
+						})
+					} else {
+						this.$store.commit('saveLabel', new Label(labelName, labelType))
+					}
 					close()
+					this.label = {}
 					this.$emit('update:showAddLabelModal', false)
 				}
 			},
 			radioChange(e) {
-				const value = e.target.value
-				this.label.type = value === '1' ? CONST_RECORD_TYPE.EXPEND : CONST_RECORD_TYPE.INCOME
+				this.label.type = e.target.value
+			},
+			valueInput(e) {
+				this.label.name = e.target.value
 			}
 		},
+		mounted() {},
 		watch:{
-			updateLabelID(){
-				console.log('1333:'+this.updateLabelID)
-				if(this.updateLabelID){
-					this.label=this.$store.state.label.labels.filter(l=>l.id===this.updateLabelID)[0]
-				}else{
-					
-				}
+			showAddLabelModal(){
+				//console.log(this.updateLabel)
 			}
-		},
-		mounted() {}
+		}
 	}
 </script>
 

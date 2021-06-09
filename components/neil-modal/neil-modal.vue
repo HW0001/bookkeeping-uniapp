@@ -64,7 +64,7 @@
             },
             autoClose: { //点击遮罩是否自动关闭弹窗
                 type: [Boolean, String],
-                default: true
+                default: false
             }
         },
         data() {

@@ -1,9 +1,10 @@
 <template>
 	<scroll-view class="label-wrapping" scroll-y>
+		<view class="delete-wrapping"><a @tap='deleteLbels'>删除标签</a></view>
 		<view class="labels-view">
 			<view v-for="(item,index) in labels" :key="index" class="label-content"
-				:class="~selectedLabel.indexOf(item.value)&&'selected'">
-				<view class="text-wrapping" @tap="clickLabel(item.value)" @longpress='updateLabel(item)'>
+				:class="~selectedLabel.indexOf(item.id)&&'selected'">
+				<view class="text-wrapping" @tap="clickLabel(item.id)" @longpress='updateLabelModal(item)'>
 					<text class="label-text">{{item.name}}</text>
 				</view>
 			</view>
@@ -34,7 +35,7 @@
 				type: Boolean,
 				default: false
 			},
-			updateLabelID: Number
+			updateLabel: Object
 		},
 		data: () => {
 			return {}
@@ -46,12 +47,17 @@
 				this.$emit('update:selectedLabel', newLabels)
 			},
 			addLabel() {
+				this.$emit('update:updateLabel', {
+					type: this.labelType
+				})
 				this.$emit('update:showAddLabelModal', true)
 			},
-			updateLabel(label) {
-				console.log(label)
-				this.$emit('update:updateLabelID', label.id)
+			updateLabelModal(label) {
+				this.$emit('update:updateLabel', label)
 				this.$emit('update:showAddLabelModal', true)
+			},
+			deleteLbels(){
+				
 			}
 		},
 		computed: {
@@ -71,6 +77,12 @@
 		flex: 1;
 		overflow-y: hidden;
 		height: 80%;
+
+		.delete-wrapping {
+			text-align: right;
+			padding:.4em 2em 0 0;
+			color: #00D1ED;
+		}
 
 		.labels-view {
 			display: flex;

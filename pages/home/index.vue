@@ -1,8 +1,8 @@
 <template>
 	<view class="content">
 		<LabelPanel :selected-label.sync='selectedlabel' :label-type='recordType'
-			:showAddLabelModal.sync="showAddLabelModal" :updateLabelID.sync='updateLabelID' />
-		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" :updateLabelID='updateLabelID' />
+			:showAddLabelModal.sync="showAddLabelModal" :updateLabel.sync='updateLabel' />
+		<LabelMdal :showAddLabelModal.sync="showAddLabelModal" :updateLabel='updateLabel'/>
 		<RecordType :selected.sync="recordType" />
 		<view class="date-wrapping">
 			<label class="date-label"> 账单日期：
@@ -51,7 +51,7 @@
 				amount: '',
 				showAddLabelModal: false,
 				amark: '',
-				updateLabelID: 0
+				updateLabel: {}
 			}
 		},
 		components: {
@@ -62,7 +62,6 @@
 			LabelMdal
 		},
 		activated() {
-			console.log('onload  11111')
 		},
 		methods: {
 			confirm(e) {
