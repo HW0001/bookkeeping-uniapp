@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index.js'
+import './pages/common/class/date.js'
 Vue.config.productionTip = false
 
 Vue.prototype.$store = store

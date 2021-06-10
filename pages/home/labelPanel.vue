@@ -63,6 +63,7 @@
 		computed: {
 			...mapState({
 				labels(state) {
+					this.$emit('update:selectedLabel',[])
 					return state.label.labels.filter(label => label.type === this.labelType)
 				}
 			})

@@ -85,7 +85,7 @@
 				}
 			},
 			reset() {
-				this.amount = 0
+				this.amount = '0'
 				this.selectedlabel = []
 				this.amark = ''
 			}
