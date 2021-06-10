@@ -7,10 +7,10 @@
 			}
 		}
         ,{
-            "path" : "pages/label/label",
+            "path" : "pages/list/index",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "List",
                 "enablePullDownRefresh": false
             }
             
@@ -40,10 +40,10 @@
 		    "borderStyle": "black",
 		    "backgroundColor": "#ffffff",
 		    "list": [{
-		        "pagePath": "pages/label/label",
+		        "pagePath": "pages/list/index",
 		        "iconPath": "static/logo/label.png",
 				"selectedIconPath":"static/logo/label.png",
-		        "text": "标签"
+		        "text": "列表"
 		    }, {
 		        "pagePath": "pages/home/index",
 		        "iconPath": "static/logo/home.png",
