@@ -77,7 +77,9 @@
 			clickKey(key, isSave) {
 				const result = keyOperation(this.amount, key, isSave)
 				if (result === CONST_RECORD_SAVE) {
-					this.$store.commit('saveRecord', new Record(this.amount, this.recordType, this.selectedlabel, this
+					this.$store.commit('saveRecord', 
+					new Record(this.amount, this.recordType, 
+					this.selectedlabel,this.recordDate, this
 						.amark))
 					this.reset()
 				} else {
